@@ -382,13 +382,13 @@
 
       <form id="reqForm" onsubmit="submitForm(event)">
         <label>نام و نام خانوادگی</label>
-        <input type="text" required placeholder="مثلاً علی رضایی">
+        <input type="text" name="Name" required placeholder="مثلاً علی رضایی">
 
         <label>شماره تماس</label>
-        <input type="tel" required placeholder="۰۹۱۲…">
+        <input type="tel" name="Contact" required placeholder="۰۹۱۲…">
 
         <label>نوع درخواست</label>
-        <select required>
+        <select name="Type" required>
           <option value="">انتخاب کنید…</option>
           <option>برق صنعتی</option>
           <option>نیروگاه خورشیدی</option>
@@ -398,7 +398,7 @@
         </select>
 
         <label>توضیح کوتاه نیاز شما</label>
-        <textarea placeholder="مثلاً نیاز به پیمانکار برای نصب ۱۰ کیلووات پنل…"></textarea>
+        <textarea name="Message" placeholder="مثلاً نیاز به پیمانکار برای نصب ۱۰ کیلووات پنل…"></textarea>
 
         <button type="submit" class="modal-submit">ارسال درخواست</button>
       </form>
@@ -456,9 +456,25 @@
 
   function submitForm(e) {
     e.preventDefault();
-    reqForm.style.display = 'none';
-    successMsg.style.display = 'block';
-    setTimeout(closeModal, 2200);
+
+    var form = e.target;
+    var data = new FormData(form);
+    var scriptURL = 'https://script.google.com/macros/s/AKfycbwP2IZDDXettR4FlHpUlDh5JnBXm_LrtfIIkQIDGn9MRLYYQsQNWWp8aOsILkTtjzF6/exec';
+
+    fetch(scriptURL, {
+      method: 'POST',
+      body: data,
+      mode: 'no-cors'
+    })
+    .then(function() {
+      form.style.display = 'none';
+      successMsg.style.display = 'block';
+      setTimeout(closeModal, 2200);
+    })
+    .catch(function(error) {
+      alert('خطا در ارسال. لطفاً دوباره تلاش کنید.');
+      console.error(error);
+    });
   }
 </script>
 
