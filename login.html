@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Tahoma, Arial, sans-serif; background: #f8f9fa; color: #202124; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+  .login-box { background: #fff; padding: 32px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); width: 100%; max-width: 400px; }
+  h2 { text-align: center; margin-bottom: 24px; font-size: 22px; }
+  .form-group { margin-bottom: 16px; }
+  label { display: block; font-size: 13px; color: #5f6368; margin-bottom: 6px; }
+  input { width: 100%; padding: 12px 14px; border: 1px solid #dfe1e5; border-radius: 8px; font-family: inherit; font-size: 15px; outline: none; }
+  input:focus { border-color: #1a73e8; box-shadow: 0 0 0 2px rgba(26,115,232,0.15); }
+  button { width: 100%; padding: 13px; background: #1a73e8; color: #fff; border: none; border-radius: 8px; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; }
+  button:hover { background: #1765cc; }
+  button:disabled { opacity: 0.6; cursor: not-allowed; }
+  .back-link { display: block; text-align: center; margin-top: 16px; font-size: 13px; color: #5f6368; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+  .error { color: #d93025; font-size: 13px; text-align: center; margin-top: 12px; display: none; }
+</style>
+</head>
+<body>
+  <div class="login-box">
+    <h2 id="title">ورود به حساب</h2>
+
+    <form id="formStep1">
+      <div class="form-group">
+        <label for="phone">شماره موبایل</label>
+        <input id="phone" type="tel" placeholder="09123456789" dir="ltr" required maxlength="11">
+      </div>
+      <button type="submit" id="btnSend">دریافت کد تایید</button>
+    </form>
+
+    <form id="formStep2" style="display:none;">
+      <div class="form-group">
+        <label for="code">کد ۵ رقمی ارسال شده</label>
+        <input id="code" type="text" placeholder="-----" dir="ltr" required maxlength="5">
+      </div>
+      <button type="submit" id="btnVerify">تایید و ورود</button>
+    </form>
+
+    <div class="error" id="errorMsg"></div>
+    <a href="services.html" class="back-link">بازگشت به خدمات</a>
+  </div>
+
+<script>
+  const formStep1 = document.getElementById('formStep1');
+  const formStep2 = document.getElementById('formStep2');
+  const title = document.getElementById('title');
+  const errorMsg = document.getElementById('errorMsg');
+  const btnSend = document.getElementById('btnSend');
+  const btnVerify = document.getElementById('btnVerify');
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = 'block';
+    setTimeout(() => { errorMsg.style.display = 'none'; }, 4000);
+  }
+
+  formStep1.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const phone = document.getElementById('phone').value.trim();
+    if (phone.length !== 11) return showError("شماره موبایل باید ۱۱ رقم باشد");
+
+    btnSend.disabled = true;
+    btnSend.textContent = "در حال ارسال...";
+
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        formStep1.style.display = 'none';
+        formStep2.style.display = 'block';
+        title.textContent = "کد تایید را وارد کنید";
+      } else {
+        showError(data.error || "خطا در ارسال کد");
+      }
+    } catch (e) {
+      showError("خطای شبکه، دوباره تلاش کنید");
+    } finally {
+      btnSend.disabled = false;
+      btnSend.textContent = "دریافت کد تایید";
+    }
+  });
+
+  formStep2.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const phone = document.getElementById('phone').value.trim();
+    const code = document.getElementById('code').value.trim();
+
+    btnVerify.disabled = true;
+    btnVerify.textContent = "در حال بررسی...";
+
+    try {
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone, code })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        // ذخیره وضعیت لاگین در localStorage
+        localStorage.setItem('user_logged_in', 'true');
+        localStorage.setItem('user_phone', phone);
+        
+        // بازگشت به صفحه‌ای که کاربر از آن آمده بود
+        const redirect = sessionStorage.getItem('redirect_after_login');
+        sessionStorage.removeItem('redirect_after_login');
+        window.location.href = redirect || 'services.html';
+      } else {
+        showError(data.error || "کد وارد شده اشتباه است");
+      }
+    } catch (e) {
+      showError("خطای شبکه، دوباره تلاش کنید");
+    } finally {
+      btnVerify.disabled = false;
+      btnVerify.textContent = "تایید و ورود";
+    }
+  });
+</script>
+</body>
+</html>

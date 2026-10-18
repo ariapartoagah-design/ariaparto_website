@@ -335,7 +335,8 @@
     <a href="contact.html">تماس</a>
     <span class="spacer"></span>
     <button id="themeBtn" type="button">🌙</button>
-    <a href="#">ورود</a>
+    <a href="login.html" id="loginLink">ورود</a>
+    <a href="#" id="logoutLink" style="display: none; color: #d93025;">خروج</a>
   </div>
 
   <main class="center">
@@ -411,6 +412,7 @@
   </div>
 
 <script>
+  // --- کدهای تم تاریک/روشن ---
   var themeBtn = document.getElementById('themeBtn');
 
   function applyTheme(theme) {
@@ -431,6 +433,7 @@
     else applyTheme('light');
   })();
 
+  // --- منطق ثبت درخواست (مودال) ---
   var modal = document.getElementById('modal');
   var reqForm = document.getElementById('reqForm');
   var successMsg = document.getElementById('successMsg');
@@ -476,6 +479,31 @@
       console.error(error);
     });
   }
+
+  // --- منطق بررسی وضعیت لاگین و دکمه خروج ---
+  (function checkAuthStatus() {
+    const isLoggedIn = localStorage.getItem('user_logged_in') === 'true';
+    const loginLink = document.getElementById('loginLink');
+    const logoutLink = document.getElementById('logoutLink');
+
+    if (isLoggedIn) {
+      if (loginLink) loginLink.style.display = 'none';
+      if (logoutLink) logoutLink.style.display = 'inline';
+    } else {
+      if (loginLink) loginLink.style.display = 'inline';
+      if (logoutLink) logoutLink.style.display = 'none';
+    }
+
+    // عملکرد دکمه خروج
+    if (logoutLink) {
+      logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('user_logged_in');
+        localStorage.removeItem('user_phone');
+        window.location.reload();
+      });
+    }
+  })();
 </script>
 
 </body>

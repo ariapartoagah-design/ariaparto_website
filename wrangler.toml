@@ -1,0 +1,12 @@
+name = "ariaparto-website"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "ariaparto-db"
+database_id = "50f936ab-901c-49c9-8ffd-bcb17daf7ef1"
+
+[assets]
+directory = "./"
+binding = "ASSETS"

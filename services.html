@@ -81,6 +81,8 @@
     border-radius: 12px;
     padding: 22px 20px;
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.25s;
+    display: flex;
+    flex-direction: column;
   }
   .card:hover {
     border-color: #dadce0;
@@ -102,6 +104,30 @@
     font-size: 13px;
     color: #5f6368;
     line-height: 1.7;
+    flex: 1;
+  }
+
+  /* استایل دکمه دانلود */
+  .card .download-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 10px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a73e8;
+    background: transparent;
+    border: 1px solid #1a73e8;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .card .download-btn:hover {
+    background: #1a73e8;
+    color: #fff;
   }
 
   /* فراخوان پایانی */
@@ -170,6 +196,14 @@
   }
   [data-theme="dark"] .card h3 { color: #e8eaed; }
   [data-theme="dark"] .card p { color: #9aa0a6; }
+  [data-theme="dark"] .card .download-btn {
+    color: #8ab4f8;
+    border-color: #8ab4f8;
+  }
+  [data-theme="dark"] .card .download-btn:hover {
+    background: #8ab4f8;
+    color: #202124;
+  }
   [data-theme="dark"] .cta { border-color: #3c4043; }
   [data-theme="dark"] .cta p { color: #e8eaed; }
   [data-theme="dark"] .cta button {
@@ -195,6 +229,8 @@
     <a href="contact.html">تماس</a>
     <span class="spacer"></span>
     <button id="themeBtn" type="button">🌙</button>
+    <a href="login.html" id="loginLink">ورود</a>
+    <a href="#" id="logoutLink" style="display: none; color: #d93025;">خروج</a>
   </div>
 
   <main>
@@ -209,36 +245,54 @@
         <span class="icon">⚡</span>
         <h3>برق صنعتی</h3>
         <p>اتصال کارفرمایان به پیمانکاران و تامین‌کنندگان تجهیزات برق صنعتی.</p>
+        <button class="download-btn" onclick="handleDownload('برق صنعتی', 'files/barq-sanati.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
       <div class="card">
         <span class="icon">☀️</span>
         <h3>نیروگاه خورشیدی</h3>
         <p>تامین پنل، اینورتر، سازه و معرفی پیمانکار برای پروژه‌های خورشیدی.</p>
+        <button class="download-btn" onclick="handleDownload('نیروگاه خورشیدی', 'files/solar.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
       <div class="card">
         <span class="icon">📉</span>
         <h3>بهینه‌سازی مصرف</h3>
         <p>ممیزی انرژی، کاهش مصرف و اخذ گواهی صرفه‌جویی برای صنایع و ساختمان‌ها.</p>
+        <button class="download-btn" onclick="handleDownload('بهینه‌سازی مصرف', 'files/energy-saving.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
       <div class="card">
         <span class="icon">📊</span>
         <h3>بازار انرژی</h3>
         <p>واسطه‌گری معاملات برق و گواهی صرفه‌جویی در بورس انرژی.</p>
+        <button class="download-btn" onclick="handleDownload('بازار انرژی', 'files/energy-market.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
       <div class="card">
         <span class="icon">🤝</span>
         <h3>مشاوره تخصصی</h3>
         <p>انتخاب تامین‌کننده، قیمت‌گذاری و ارزیابی فنی پروژه‌های انرژی.</p>
+        <button class="download-btn" onclick="handleDownload('مشاوره تخصصی', 'files/consulting.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
       <div class="card">
         <span class="icon">🌍</span>
         <h3>صادرات</h3>
         <p>اتصال تولیدکنندگان داخلی به بازارهای منطقه‌ای و مدیریت زنجیره صادرات.</p>
+        <button class="download-btn" onclick="handleDownload('صادرات', 'files/export.pdf')">
+          ⬇️ دانلود کاتالوگ
+        </button>
       </div>
 
     </div>
@@ -257,6 +311,7 @@
   </footer>
 
 <script>
+  // --- کدهای مربوط به تم تاریک/روشن ---
   var themeBtn = document.getElementById('themeBtn');
 
   function applyTheme(theme) {
@@ -275,6 +330,47 @@
     try { saved = localStorage.getItem('theme'); } catch(e) {}
     if (saved) applyTheme(saved);
     else applyTheme('light');
+  })();
+
+  // --- منطق دانلود و بررسی لاگین ---
+  function isLoggedIn() {
+    return localStorage.getItem('user_logged_in') === 'true';
+  }
+
+  function handleDownload(serviceName, pdfUrl) {
+    if (isLoggedIn()) {
+      // کاربر لاگین است → مستقیم دانلود کن
+      window.open(pdfUrl, '_blank');
+    } else {
+      // کاربر لاگین نیست → به صفحه لاگین برو
+      alert('برای دانلود کاتالوگ، لطفاً ابتدا وارد شوید.');
+      sessionStorage.setItem('redirect_after_login', window.location.href);
+      window.location.href = 'login.html';
+    }
+  }
+
+  // --- منطق بررسی وضعیت لاگین و دکمه خروج ---
+  (function checkAuthStatus() {
+    const isLoggedIn = localStorage.getItem('user_logged_in') === 'true';
+    const loginLink = document.getElementById('loginLink');
+    const logoutLink = document.getElementById('logoutLink');
+
+    if (isLoggedIn) {
+      if (loginLink) loginLink.style.display = 'none';
+      if (logoutLink) logoutLink.style.display = 'inline';
+    } else {
+      if (loginLink) loginLink.style.display = 'inline';
+      if (logoutLink) logoutLink.style.display = 'none';
+    }
+
+    if (logoutLink) {
+      logoutLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('user_logged_in');
+        localStorage.removeItem('user_phone');
+        window.location.reload();
+      });
+    }
   })();
 </script>
 </body>

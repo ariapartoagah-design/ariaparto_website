@@ -1,0 +1,7 @@
+node_modules
+.wrangler
+.git
+package-lock.json
+package.json
+README.md
+*.log
