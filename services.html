@@ -227,10 +227,12 @@
     <a href="services.html">خدمات</a>
     <a href="about.html">درباره ما</a>
     <a href="contact.html">تماس</a>
+    <a href="membership.html">سطوح دسترسی</a>
     <span class="spacer"></span>
     <button id="themeBtn" type="button">🌙</button>
-    <a href="login.html" id="loginLink">ورود</a>
-    <a href="#" id="logoutLink" style="display: none; color: #d93025;">خروج</a>
+    <span id="userGreeting" style="display:none; color:#1a73e8; font-weight:600; margin-left: 15px;"></span>
+    <a href="login.html" class="login-link" id="loginLink">ورود</a>
+    <a href="#" class="logout-link" id="logoutLink" style="display: none; color: #d93025;">خروج</a>
   </div>
 
   <main>
@@ -311,7 +313,7 @@
   </footer>
 
 <script>
-  // --- کدهای مربوط به تم تاریک/روشن ---
+  // --- کدهای تم تاریک/روشن ---
   var themeBtn = document.getElementById('themeBtn');
 
   function applyTheme(theme) {
@@ -334,44 +336,32 @@
 
   // --- منطق دانلود و بررسی لاگین ---
   function isLoggedIn() {
-    return localStorage.getItem('user_logged_in') === 'true';
+    // بررسی دقیق‌تر: آیا localStorage می‌گوید کاربر لاگین است؟
+    if (localStorage.getItem('user_logged_in') === 'true') {
+        return true;
+    }
+    // اگر auth.js قبلاً وضعیت کاربر را گرفته باشد
+    if (window.currentUser !== undefined && window.currentUser !== null) {
+        return true;
+    }
+    return false;
   }
 
   function handleDownload(serviceName, pdfUrl) {
     if (isLoggedIn()) {
-      // کاربر لاگین است → مستقیم دانلود کن
+      // اگر لاگین بود، دانلود کن
       window.open(pdfUrl, '_blank');
     } else {
-      // کاربر لاگین نیست → به صفحه لاگین برو
+      // اگر لاگین نبود، به صفحه لاگین برو
       alert('برای دانلود کاتالوگ، لطفاً ابتدا وارد شوید.');
       sessionStorage.setItem('redirect_after_login', window.location.href);
       window.location.href = 'login.html';
     }
   }
-
-  // --- منطق بررسی وضعیت لاگین و دکمه خروج ---
-  (function checkAuthStatus() {
-    const isLoggedIn = localStorage.getItem('user_logged_in') === 'true';
-    const loginLink = document.getElementById('loginLink');
-    const logoutLink = document.getElementById('logoutLink');
-
-    if (isLoggedIn) {
-      if (loginLink) loginLink.style.display = 'none';
-      if (logoutLink) logoutLink.style.display = 'inline';
-    } else {
-      if (loginLink) loginLink.style.display = 'inline';
-      if (logoutLink) logoutLink.style.display = 'none';
-    }
-
-    if (logoutLink) {
-      logoutLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        localStorage.removeItem('user_logged_in');
-        localStorage.removeItem('user_phone');
-        window.location.reload();
-      });
-    }
-  })();
 </script>
+
+<!-- اضافه کردن اسکریپت مشترک auth.js -->
+<script src="js/auth.js"></script>
+
 </body>
 </html>
