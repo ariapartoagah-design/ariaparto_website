@@ -1,11 +1,11 @@
-// auth.js - مدیریت متمرکز وضعیت لاگین و سطوح دسترسی
+// auth.js - مدیریت متمرکز وضعیت لاگین (فقط با localStorage)
 
 function checkAuthStatus() {
   const loginLinks = document.querySelectorAll('.login-link');
   const logoutLinks = document.querySelectorAll('.logout-link');
   const userGreeting = document.getElementById('userGreeting');
 
-  // بررسی وضعیت لاگین از localStorage
+  // بررسی وضعیت لاگین فقط از localStorage
   const isLoggedIn = localStorage.getItem('user_logged_in') === 'true';
   const userPhone = localStorage.getItem('user_phone') || '';
 
@@ -38,7 +38,7 @@ function logoutUser() {
   window.location.href = 'index.html';
 }
 
-// اجرای خودکار پس از بارگذاری صفحه
+// اجرای خودکار پس از بارگذاری هر صفحه
 document.addEventListener('DOMContentLoaded', () => {
   checkAuthStatus();
 
