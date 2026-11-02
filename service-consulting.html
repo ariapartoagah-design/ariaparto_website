@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مشاوره تخصصی | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Tahoma, Arial, sans-serif; background: #ffffff; color: #202124; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.25s, color 0.25s; }
+  .topbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 22px; padding: 20px 28px; font-size: 13px; }
+  .topbar a { color: #5f6368; text-decoration: none; cursor: pointer; }
+  .topbar a:hover { text-decoration: underline; }
+  .topbar .spacer { flex: 1; }
+  .topbar button { background: none; border: none; font-size: 17px; cursor: pointer; padding: 4px 6px; border-radius: 50%; }
+  .topbar button:hover { background: #f8f9fa; }
+  
+  main { flex: 1; max-width: 800px; width: 100%; margin: 0 auto; padding: 20px 24px 60px; }
+  
+  /* دکمه بازگشت */
+  .back-btn { display: inline-flex; align-items: center; gap: 8px; color: #1a73e8; text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 24px; padding: 8px 16px; background: #e8f0fe; border-radius: 8px; transition: background 0.2s; }
+  .back-btn:hover { background: #d2e3fc; }
+
+  .page-header { text-align: center; margin-bottom: 40px; }
+  .page-header .icon { font-size: 48px; display: block; margin-bottom: 16px; }
+  .page-header h1 { font-size: 32px; font-weight: 700; color: #202124; margin-bottom: 16px; }
+  .page-header p { font-size: 15px; color: #5f6368; line-height: 1.8; text-align: justify; }
+
+  .content-section { margin-bottom: 32px; }
+  .content-section h3 { font-size: 18px; font-weight: 700; color: #202124; margin-bottom: 12px; border-right: 4px solid #1a73e8; padding-right: 12px; }
+  .content-section p { font-size: 14.5px; line-height: 1.9; color: #3c4043; text-align: justify; margin-bottom: 16px; }
+  .content-section ul { padding-right: 20px; margin-bottom: 16px; }
+  .content-section li { font-size: 14.5px; line-height: 1.9; color: #3c4043; margin-bottom: 8px; }
+
+  .advantage-box { background: #f8f9fa; border: 1px solid #e8eaed; border-radius: 12px; padding: 24px; margin-top: 40px; }
+  .advantage-box h3 { color: #1a73e8; font-size: 18px; margin-bottom: 16px; border-right: none; padding-right: 0; }
+  .advantage-box ul { padding-right: 20px; }
+  .advantage-box li { font-size: 14.5px; line-height: 1.9; color: #3c4043; margin-bottom: 8px; }
+
+  footer { border-top: 1px solid #e8eaed; padding: 14px 28px; display: flex; justify-content: center; gap: 22px; font-size: 12.5px; color: #5f6368; }
+  footer a { color: #5f6368; text-decoration: none; cursor: pointer; }
+  footer a:hover { text-decoration: underline; }
+
+  /* حالت تاریک */
+  [data-theme="dark"] body { background: #202124; color: #e8eaed; }
+  [data-theme="dark"] .topbar a, [data-theme="dark"] footer a { color: #9aa0a6; }
+  [data-theme="dark"] .topbar button:hover { background: #303134; }
+  [data-theme="dark"] .back-btn { background: #303134; color: #8ab4f8; }
+  [data-theme="dark"] .back-btn:hover { background: #3c4043; }
+  [data-theme="dark"] .page-header h1 { color: #e8eaed; }
+  [data-theme="dark"] .page-header p { color: #9aa0a6; }
+  [data-theme="dark"] .content-section h3 { color: #e8eaed; border-right-color: #8ab4f8; }
+  [data-theme="dark"] .content-section p, [data-theme="dark"] .content-section li { color: #bdc1c6; }
+  [data-theme="dark"] .advantage-box { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .advantage-box h3 { color: #8ab4f8; }
+  [data-theme="dark"] .advantage-box li { color: #bdc1c6; }
+  [data-theme="dark"] footer { border-color: #3c4043; }
+
+  @media (max-width: 720px) { .page-header h1 { font-size: 26px; } main { padding: 12px 18px 40px; } }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="index.html">خانه</a>
+    <a href="services.html">خدمات</a>
+    <a href="about.html">درباره ما</a>
+    <a href="contact.html">تماس</a>
+    <span class="spacer"></span>
+    <button id="themeBtn" type="button">🌙</button>
+  </div>
+
+  <main>
+    <!-- دکمه بازگشت -->
+    <a href="services.html" class="back-btn">← بازگشت به لیست خدمات</a>
+
+    <div class="page-header">
+      <span class="icon">🤝</span>
+      <h1>مشاوره تخصصی</h1>
+      <p>تصمیم‌گیری در مورد سرمایه‌گذاری‌های کلان در حوزه انرژی بدون داده‌های دقیق، ریسک‌های جبران‌ناپذیری دارد. آریا پرتو آگاه نقش مشاور امین (Owner’s Engineer) و بازوی فنی کارفرمایان را ایفا می‌کند تا پیش از هرگونه هزینه‌کرد، ابعاد فنی، اقتصادی و اجرایی پروژه شفاف شود.</p>
+    </div>
+
+    <div class="content-section">
+      <h3>۱. ارزیابی فنی و امکان‌سنجی پروژه</h3>
+      <p>مطالعات جامع شامل بررسی زیرساخت‌های موجود، تحلیل ظرفیت شبکه، ارزیابی شرایط محیطی و تدوین سناریوهای مختلف فنی است. ما با ارائه گزارش‌های دقیق، بهینه‌ترین گزینه را از نظر فنی و اجرایی پیشنهاد می‌دهیم.</p>
+    </div>
+
+    <div class="content-section">
+      <h3>۲. تحلیل اقتصادی و قیمت‌گذاری</h3>
+      <p>با انجام تحلیل‌های دقیق مالی (محاسبه CAPEX و OPEX، نرخ بازده داخلی IRR و دوره بازگشت سرمایه)، تصویر مالی روشنی از پروژه ترسیم می‌شود. همچنین با تکیه بر دانش بازار، بهترین برآورد قیمتی برای تجهیزات ارائه می‌شود تا از هزینه‌های اضافی جلوگیری شود.</p>
+    </div>
+
+    <div class="content-section">
+      <h3>۳. انتخاب تامین‌کننده و پیمانکار</h3>
+      <p>ما با تدوین اسناد مناقصه (RFP)، ارزیابی صلاحیت فنی و مالی تامین‌کنندگان و بررسی سوابق اجرایی آن‌ها، به شما در انتخاب مطمئن‌ترین طرف قرارداد کمک می‌کنیم. ما در جلسات مذاکره و تنظیم قراردادهای فنی نیز در کنار شما هستیم.</p>
+    </div>
+
+    <div class="advantage-box">
+      <h3>مزیت رقابتی آریا پرتو آگاه</h3>
+      <ul>
+        <li><strong>مشاوره بی‌طرفانه:</strong> وابسته نبودن به برند یا پیمانکار خاص و در نظر گرفتن صرفاً منافع کارفرما.</li>
+        <li><strong>کاهش ریسک سرمایه‌گذاری:</strong> شناسایی به‌موقع چالش‌ها قبل از تبدیل شدن به بحران‌های مالی و اجرایی.</li>
+        <li><strong>تیم چندتخصصی:</strong> ترکیب دانش مهندسی برق، انرژی و اقتصاد برای ارائه راهکارهای جامع و واقع‌بینانه.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <a href="contact.html">تماس</a>
+    <a href="about.html">درباره</a>
+    <a href="#">قوانین</a>
+    <span>© آریا پرتو آگاه</span>
+  </footer>
+
+<script>
+  var themeBtn = document.getElementById('themeBtn');
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+  }
+  themeBtn.addEventListener('click', function() {
+    var current = document.documentElement.getAttribute('data-theme') || 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  (function initTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch(e) {}
+    if (saved) applyTheme(saved);
+    else applyTheme('light');
+  })();
+</script>
+</body>
+</html>
