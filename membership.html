@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سطوح دسترسی | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #f8f9fa;
+    color: #202124;
+    padding: 40px 20px;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .table-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
+    border: 1px solid #e8eaed;
+  }
+
+  .table-header {
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px solid #e8eaed;
+    background: #fff;
+  }
+  .table-header h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    color: #1a73e8;
+    font-weight: 700;
+  }
+  .table-header p {
+    margin: 0;
+    color: #5f6368;
+    font-size: 14.5px;
+  }
+
+  /* --- استایل جدول (برای دسکتاپ) --- */
+  .desktop-table {
+    display: block;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+  }
+  th {
+    padding: 18px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 2px solid #e8eaed;
+    text-align: center;
+    background: #f8f9fa;
+  }
+  td {
+    padding: 16px 15px;
+    font-size: 13.5px;
+    border-bottom: 1px solid #e8eaed;
+    vertical-align: middle;
+    text-align: center;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background-color: #f8f9fa; }
+
+  td:first-child {
+    font-weight: 600;
+    color: #3c4043;
+    text-align: right;
+    background-color: #fafafa;
+  }
+
+  th:nth-child(1) { color: #202124; text-align: right; }
+  th:nth-child(2) { color: #34a853; }
+  th:nth-child(3) { color: #1a73e8; }
+  th:nth-child(4) { color: #f9ab00; }
+  th:nth-child(5) { color: #d93025; }
+  th:nth-child(6) { color: #8e24aa; }
+
+  .icon-free { font-size: 18px; }
+  .icon-premium { font-size: 18px; }
+  .icon-none { color: #dadce0; font-size: 16px; font-weight: bold; }
+
+  .col-1 { border-top: 4px solid #34a853; }
+  .col-2 { border-top: 4px solid #1a73e8; }
+  .col-3 { border-top: 4px solid #f9ab00; }
+  .col-4 { border-top: 4px solid #d93025; }
+  .col-5 { border-top: 4px solid #8e24aa; }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e8eaed;
+    font-size: 13px;
+    color: #5f6368;
+  }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+
+  /* --- استایل کارت‌ها (برای موبایل) --- */
+  .mobile-cards {
+    display: none; /* در دسکتاپ مخفی است */
+    padding: 20px;
+    gap: 20px;
+    flex-direction: column;
+  }
+  .level-card {
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  }
+  .level-card-header {
+    padding: 16px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #fff;
+    text-align: center;
+  }
+  .level-card-header.level-1 { background: #34a853; }
+  .level-card-header.level-2 { background: #1a73e8; }
+  .level-card-header.level-3 { background: #f9ab00; }
+  .level-card-header.level-4 { background: #d93025; }
+  .level-card-header.level-5 { background: #8e24aa; }
+
+  .level-card-body {
+    padding: 0;
+  }
+  .feature-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f3f4;
+    font-size: 13.5px;
+  }
+  .feature-row:last-child { border-bottom: none; }
+  .feature-name { color: #3c4043; font-weight: 500; }
+  .feature-icon { font-size: 18px; }
+
+  /* --- حالت تاریک --- */
+  [data-theme="dark"] body { background: #202124; color: #e8eaed; }
+  [data-theme="dark"] .table-container { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .table-header { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .table-header h2 { color: #8ab4f8; }
+  [data-theme="dark"] .table-header p { color: #9aa0a6; }
+  [data-theme="dark"] th { background: #202124; border-color: #3c4043; }
+  [data-theme="dark"] td { border-color: #3c4043; }
+  [data-theme="dark"] tr:hover { background-color: #3c4043; }
+  [data-theme="dark"] td:first-child { background-color: #202124; color: #e8eaed; }
+  [data-theme="dark"] .legend { background: #202124; border-color: #3c4043; color: #9aa0a6; }
+  [data-theme="dark"] .icon-none { color: #5f6368; }
+  
+  [data-theme="dark"] .level-card { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .feature-row { border-color: #3c4043; }
+  [data-theme="dark"] .feature-name { color: #e8eaed; }
+
+  /* --- ریسپانسیو (تبدیل جدول به کارت در موبایل) --- */
+  @media (max-width: 768px) {
+    .desktop-table { display: none; } /* جدول را مخفی کن */
+    .mobile-cards { display: flex; } /* کارت‌ها را نشان بده */
+    .legend { flex-direction: column; align-items: center; gap: 12px; }
+  }
+
+  /* استایل دکمه بازگشت */
+  .back-nav {
+    max-width: 1100px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #5f6368;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #e8eaed;
+    transition: background 0.2s, color 0.2s;
+  }
+  .back-btn:hover {
+    background: #f8f9fa;
+    color: #1a73e8;
+    border-color: #dadce0;
+  }
+  [data-theme="dark"] .back-btn { background: #303134; border-color: #3c4043; color: #9aa0a6; }
+  [data-theme="dark"] .back-btn:hover { background: #3c4043; color: #8ab4f8; }
+</style>
+</head>
+<body>
+
+  <div class="back-nav">
+    <a href="#" onclick="history.back(); return false;" class="back-btn">
+      <span>→</span> بازگشت
+    </a>
+  </div>
+
+  <div class="table-container">
+    <div class="table-header">
+      <h2>سطوح دسترسی کاربران</h2>
+      <p>پلتفرم کارگزاری انرژی آریا پرتو آگاه</p>
+    </div>
+    
+    <!-- نمای دسکتاپ (جدول) -->
+    <div class="desktop-table">
+      <table>
+        <thead>
+          <tr>
+            <th>ویژگی / خدمت</th>
+            <th class="col-1">سطح ۱<br><small>مهمان</small></th>
+            <th class="col-2">سطح ۲<br><small>کاربر پایه</small></th>
+            <th class="col-3">سطح ۳<br><small>مشترک</small></th>
+            <th class="col-4">سطح ۴<br><small>همکار</small></th>
+            <th class="col-5">سطح ۵<br><small>شریک / مدیر</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>مشاهده صفحات عمومی</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>ثبت درخواست و یادداشت</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>دانلود کاتالوگ‌های عمومی</td><td class="icon-none">✖</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>دریافت خبرنامه و تحلیل‌های بازار</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>داشبورد اختصاصی کاربری</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>مشاهده گزارش‌های تحلیلی پایه</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>دسترسی به قیمت‌های ویژه و لحظه‌ای</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>امکان شرکت در مناقصات</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>پشتیبانی اختصاصی (تلفن/واتساپ)</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td><td class="icon-free">🟢</td></tr>
+          <tr><td>دسترسی به مستندات فنی و حقوقی</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td></tr>
+          <tr><td>اتصال به شبکه کارگزاری و تاریخچه معاملات</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td></tr>
+          <tr><td>ثبت آگهی و درخواست خرید/فروش</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-premium">💎</td><td class="icon-free">🟢</td></tr>
+          <tr><td>پنل مدیریت، گزارش‌گیری کلان و تعریف سطح دسترسی</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-none">✖</td><td class="icon-free">🟢</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- نمای موبایل (کارت‌ها) -->
+    <div class="mobile-cards">
+      
+      <!-- کارت سطح 1 -->
+      <div class="level-card">
+        <div class="level-card-header level-1">سطح ۱: مهمان</div>
+        <div class="level-card-body">
+          <div class="feature-row"><span class="feature-name">مشاهده صفحات عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت درخواست و یادداشت</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دانلود کاتالوگ‌های عمومی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">دریافت خبرنامه و تحلیل‌های بازار</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">داشبورد اختصاصی کاربری</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">مشاهده گزارش‌های تحلیلی پایه</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به قیمت‌های ویژه و لحظه‌ای</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">امکان شرکت در مناقصات</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">پشتیبانی اختصاصی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به مستندات فنی و حقوقی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">اتصال به شبکه کارگزاری</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت آگهی و درخواست</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">پنل مدیریت</span><span class="feature-icon icon-none">✖</span></div>
+        </div>
+      </div>
+
+      <!-- کارت سطح 2 -->
+      <div class="level-card">
+        <div class="level-card-header level-2">سطح ۲: کاربر پایه</div>
+        <div class="level-card-body">
+          <div class="feature-row"><span class="feature-name">مشاهده صفحات عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت درخواست و یادداشت</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دانلود کاتالوگ‌های عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دریافت خبرنامه و تحلیل‌های بازار</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">داشبورد اختصاصی کاربری</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">مشاهده گزارش‌های تحلیلی پایه</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به قیمت‌های ویژه و لحظه‌ای</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">امکان شرکت در مناقصات</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">پشتیبانی اختصاصی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به مستندات فنی و حقوقی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">اتصال به شبکه کارگزاری</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت آگهی و درخواست</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">پنل مدیریت</span><span class="feature-icon icon-none">✖</span></div>
+        </div>
+      </div>
+
+      <!-- کارت سطح 3 -->
+      <div class="level-card">
+        <div class="level-card-header level-3">سطح ۳: مشترک</div>
+        <div class="level-card-body">
+          <div class="feature-row"><span class="feature-name">مشاهده صفحات عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت درخواست و یادداشت</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دانلود کاتالوگ‌های عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دریافت خبرنامه و تحلیل‌های بازار</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">داشبورد اختصاصی کاربری</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">مشاهده گزارش‌های تحلیلی پایه</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به قیمت‌های ویژه و لحظه‌ای</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">امکان شرکت در مناقصات</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">پشتیبانی اختصاصی</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به مستندات فنی و حقوقی</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">اتصال به شبکه کارگزاری</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت آگهی و درخواست</span><span class="feature-icon icon-none">✖</span></div>
+          <div class="feature-row"><span class="feature-name">پنل مدیریت</span><span class="feature-icon icon-none">✖</span></div>
+        </div>
+      </div>
+
+      <!-- کارت سطح 4 -->
+      <div class="level-card">
+        <div class="level-card-header level-4">سطح ۴: همکار</div>
+        <div class="level-card-body">
+          <div class="feature-row"><span class="feature-name">مشاهده صفحات عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت درخواست و یادداشت</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دانلود کاتالوگ‌های عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دریافت خبرنامه و تحلیل‌های بازار</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">داشبورد اختصاصی کاربری</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">مشاهده گزارش‌های تحلیلی پایه</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به قیمت‌های ویژه و لحظه‌ای</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">امکان شرکت در مناقصات</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">پشتیبانی اختصاصی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به مستندات فنی و حقوقی</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">اتصال به شبکه کارگزاری</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت آگهی و درخواست</span><span class="feature-icon icon-premium">💎</span></div>
+          <div class="feature-row"><span class="feature-name">پنل مدیریت</span><span class="feature-icon icon-none">✖</span></div>
+        </div>
+      </div>
+
+      <!-- کارت سطح 5 -->
+      <div class="level-card">
+        <div class="level-card-header level-5">سطح ۵: شریک / مدیر</div>
+        <div class="level-card-body">
+          <div class="feature-row"><span class="feature-name">مشاهده صفحات عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت درخواست و یادداشت</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دانلود کاتالوگ‌های عمومی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دریافت خبرنامه و تحلیل‌های بازار</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">داشبورد اختصاصی کاربری</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">مشاهده گزارش‌های تحلیلی پایه</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به قیمت‌های ویژه و لحظه‌ای</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">امکان شرکت در مناقصات</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">پشتیبانی اختصاصی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">دسترسی به مستندات فنی و حقوقی</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">اتصال به شبکه کارگزاری</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">ثبت آگهی و درخواست</span><span class="feature-icon icon-free">🟢</span></div>
+          <div class="feature-row"><span class="feature-name">پنل مدیریت</span><span class="feature-icon icon-free">🟢</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="icon-free">🟢</span> رایگان</div>
+      <div class="legend-item"><span class="icon-premium">💎</span> نیازمند پرداخت اشتراک (پرمیوم)</div>
+      <div class="legend-item"><span class="icon-none">✖</span> بدون دسترسی</div>
+    </div>
+  </div>
+
+<!-- اضافه کردن اسکریپت مشترک auth.js -->
+<script src="js/auth.js"></script>
+
+</body>
+</html>

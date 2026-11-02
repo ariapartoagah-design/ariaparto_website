@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثبت‌نام | آریا پرتو آگاه</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #f8f9fa;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  .register-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    width: 100%;
+    max-width: 450px;
+    border: 1px solid #e8eaed;
+  }
+
+  .register-box h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #1a73e8;
+    font-weight: 700;
+  }
+
+  /* استایل فرم‌ها */
+  .form-step { display: none; }
+  .form-step.active { display: block; }
+
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    color: #5f6368;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    color: #202124;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 2px rgba(26,115,232,0.15);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 13px;
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #1765cc; }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #5f6368;
+    text-decoration: none;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .error-msg {
+    color: #d93025;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 12px;
+    display: none;
+    background: #fce8e6;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  /* استایل مراحل */
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  .step-dot {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e8eaed;
+    color: #5f6368;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .step-dot.active {
+    background: #1a73e8;
+    color: #fff;
+  }
+  .step-dot.done {
+    background: #34a853;
+    color: #fff;
+  }
+
+  /* استایل تایمر */
+  .timer-box {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #5f6368;
+  }
+  .timer {
+    font-weight: 700;
+    color: #d93025;
+    font-size: 16px;
+    direction: ltr;
+    display: inline-block;
+  }
+  .timer-box.expired .timer { color: #d93025; }
+
+  /* حالت تاریک */
+  [data-theme="dark"] body { background: #202124; color: #e8eaed; }
+  [data-theme="dark"] .register-box { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .register-box h2 { color: #8ab4f8; }
+  [data-theme="dark"] .form-group label { color: #9aa0a6; }
+  [data-theme="dark"] .form-group input,
+  [data-theme="dark"] .form-group select {
+    background: #202124;
+    border-color: #3c4043;
+    color: #e8eaed;
+  }
+  [data-theme="dark"] .back-link { color: #9aa0a6; }
+  [data-theme="dark"] .step-dot { background: #3c4043; color: #9aa0a6; }
+  [data-theme="dark"] .step-dot.active { background: #8ab4f8; color: #202124; }
+</style>
+</head>
+<body>
+
+  <div class="register-box">
+    <h2>ایجاد حساب کاربری</h2>
+
+    <!-- نشانگر مراحل -->
+    <div class="step-indicator">
+      <div class="step-dot active" id="dot1">۱</div>
+      <div class="step-dot" id="dot2">۲</div>
+      <div class="step-dot" id="dot3">۳</div>
+    </div>
+
+    <!-- مرحله ۱: دریافت شماره موبایل -->
+    <form id="formStep1" class="form-step active">
+      <div class="form-group">
+        <label for="regPhone">شماره موبایل</label>
+        <input id="regPhone" type="tel" placeholder="09123456789" dir="ltr" required maxlength="11">
+      </div>
+      <button type="submit" class="btn" id="btnSendOtp">دریافت کد تایید</button>
+    </form>
+
+    <!-- مرحله ۲: دریافت کد OTP -->
+    <form id="formStep2" class="form-step">
+      <div class="form-group">
+        <label for="regCode">کد ۵ رقمی ارسال شده به <span id="displayPhone"></span></label>
+        <input id="regCode" type="text" placeholder="-----" dir="ltr" required maxlength="5">
+      </div>
+      
+      <!-- تایمر معکوس -->
+      <div class="timer-box" id="timerBox">
+        زمان باقیمانده: <span class="timer" id="countdown">02:00</span>
+      </div>
+
+      <button type="submit" class="btn" id="btnVerifyOtp">تایید کد</button>
+      <button type="button" class="btn" style="background: #5f6368; margin-top: 8px;" onclick="resetToStep1()">تغییر شماره موبایل</button>
+    </form>
+
+    <!-- مرحله ۳: تکمیل اطلاعات -->
+    <form id="formStep3" class="form-step">
+      <div class="form-group">
+        <label for="regName">نام و نام خانوادگی</label>
+        <input id="regName" type="text" placeholder="مثلاً علی رضایی" required>
+      </div>
+      <div class="form-group">
+        <label for="regEmail">ایمیل (اختیاری - برای بازیابی رمز)</label>
+        <input id="regEmail" type="email" placeholder="example@mail.com" dir="ltr">
+      </div>
+      <div class="form-group">
+        <label for="regPassword">رمز عبور</label>
+        <input id="regPassword" type="password" placeholder="حداقل ۶ کاراکتر" dir="ltr" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label for="regRole">نوع حساب</label>
+        <select id="regRole" required>
+          <option value="user">کاربر پایه (Basic)</option>
+          <option value="subscriber">مشترک (Subscriber)</option>
+          <option value="partner">همکار (Partner)</option>
+        </select>
+      </div>
+      <button type="submit" class="btn" id="btnRegister">ثبت‌نام نهایی</button>
+    </form>
+
+    <div class="error-msg" id="errorMsg"></div>
+    <a href="login.html" class="back-link">قبلاً ثبت‌نام کرده‌اید؟ وارد شوید</a>
+  </div>
+
+<script>
+  const formStep1 = document.getElementById('formStep1');
+  const formStep2 = document.getElementById('formStep2');
+  const formStep3 = document.getElementById('formStep3');
+  const dot1 = document.getElementById('dot1');
+  const dot2 = document.getElementById('dot2');
+  const dot3 = document.getElementById('dot3');
+  const errorMsg = document.getElementById('errorMsg');
+  const displayPhone = document.getElementById('displayPhone');
+  const countdownEl = document.getElementById('countdown');
+  const timerBox = document.getElementById('timerBox');
+  
+  let currentPhone = '';
+  let currentOtp = '';
+  let timerInterval = null;
+  const OTP_EXPIRY_SECONDS = 120; // ۲ دقیقه
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.style.display = 'block';
+    setTimeout(() => { errorMsg.style.display = 'none'; }, 5000);
+  }
+
+  function startTimer() {
+    // پاک کردن تایمر قبلی
+    if (timerInterval) clearInterval(timerInterval);
+    
+    let timeLeft = OTP_EXPIRY_SECONDS;
+    countdownEl.textContent = formatTime(timeLeft);
+    timerBox.classList.remove('expired');
+
+    timerInterval = setInterval(() => {
+      timeLeft--;
+      countdownEl.textContent = formatTime(timeLeft);
+
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        timerBox.classList.add('expired');
+        countdownEl.textContent = "00:00";
+        showError("زمان کد تایید به پایان رسید. لطفاً دوباره شماره را وارد کنید.");
+        resetToStep1();
+      }
+    }, 1000);
+  }
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function resetToStep1() {
+    if (timerInterval) clearInterval(timerInterval);
+    formStep1.classList.add('active');
+    formStep2.classList.remove('active');
+    formStep3.classList.remove('active');
+    dot1.classList.add('active');
+    dot2.classList.remove('active', 'done');
+    dot3.classList.remove('active');
+    document.getElementById('regPhone').value = '';
+    document.getElementById('regCode').value = '';
+    countdownEl.textContent = "02:00";
+    timerBox.classList.remove('expired');
+  }
+
+  // --- مرحله ۱: ارسال کد OTP ---
+  formStep1.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const phone = document.getElementById('regPhone').value.trim();
+    if (phone.length !== 11) return showError("شماره موبایل باید ۱۱ رقم باشد");
+
+    const btn = document.getElementById('btnSendOtp');
+    btn.disabled = true;
+    btn.textContent = "در حال ارسال...";
+
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone })
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        currentPhone = phone;
+        displayPhone.textContent = phone;
+        formStep1.classList.remove('active');
+        formStep2.classList.add('active');
+        dot1.classList.remove('active');
+        dot1.classList.add('done');
+        dot2.classList.add('active');
+        startTimer(); // شروع تایمر
+      } else {
+        showError(data.error || "خطا در ارسال کد");
+      }
+    } catch (err) {
+      showError("خطای شبکه، دوباره تلاش کنید");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "دریافت کد تایید";
+    }
+  });
+
+  // --- مرحله ۲: تایید کد OTP ---
+  formStep2.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('regCode').value.trim();
+    if (code.length !== 5) return showError("کد باید ۵ رقم باشد");
+
+    const btn = document.getElementById('btnVerifyOtp');
+    btn.disabled = true;
+    btn.textContent = "در حال بررسی...";
+
+    try {
+      const res = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentPhone, code })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        if (timerInterval) clearInterval(timerInterval); // توقف تایمر
+        currentOtp = code;
+        formStep2.classList.remove('active');
+        formStep3.classList.add('active');
+        dot2.classList.remove('active');
+        dot2.classList.add('done');
+        dot3.classList.add('active');
+      } else {
+        showError(data.error || "کد وارد شده اشتباه است.");
+        resetToStep1();
+      }
+    } catch (err) {
+      showError("خطای شبکه، دوباره تلاش کنید");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "تایید کد";
+    }
+  });
+
+  // --- مرحله ۳: ثبت‌نام نهایی ---
+  formStep3.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim();
+    const password = document.getElementById('regPassword').value;
+    const role = document.getElementById('regRole').value;
+
+    const btn = document.getElementById('btnRegister');
+    btn.disabled = true;
+    btn.textContent = "در حال ثبت‌نام...";
+
+    try {
+      const res = await fetch('/api/auth/register-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentPhone, code: currentOtp, name, email, password, role })
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("ثبت‌نام با موفقیت انجام شد! حالا می‌توانید وارد شوید.");
+        window.location.href = 'login.html';
+      } else {
+        showError(data.error || "خطا در ثبت‌نام");
+        if (data.error && data.error.includes("کد")) {
+          resetToStep1();
+        }
+      }
+    } catch (err) {
+      showError("خطای شبکه، دوباره تلاش کنید");
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "ثبت‌نام نهایی";
+    }
+  });
+</script>
+
+<!-- اضافه کردن اسکریپت مشترک auth.js -->
+<script src="js/auth.js"></script>
+
+</body>
+</html>
