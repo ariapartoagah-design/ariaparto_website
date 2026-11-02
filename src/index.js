@@ -14,18 +14,21 @@ export default {
 
 async function handleAuth(request, env, url) {
   const path = url.pathname;
+  
+  // اصلاح CORS برای ارسال کوکی‌ها
   const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': 'https://ariapartoagah.ir',
     'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Credentials': 'true',
   };
 
-  // پاسخ به درخواست‌های OPTIONS (برای CORS)
+  // پاسخ به درخواست‌های OPTIONS
   if (request.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // ۱. API ارسال کد OTP
+  // ۱. API ارسال کد OTP (با اتصال به کاوه‌نگار)
   if (path === '/api/auth/send-otp' && request.method === 'POST') {
     try {
       const { phone } = await request.json();
@@ -36,12 +39,31 @@ async function handleAuth(request, env, url) {
       const code = Math.floor(10000 + Math.random() * 90000).toString();
       const expiresAt = Date.now() + 2 * 60 * 1000; // ۲ دقیقه اعتبار
 
-      // ذخیره در دیتابیس D1 (فعال شد)
+      // ذخیره در دیتابیس D1
       await env.DB.prepare(
         "INSERT INTO otps (phone, code, expires_at) VALUES (?, ?, ?) ON CONFLICT(phone) DO UPDATE SET code = ?, expires_at = ?"
       ).bind(phone, code, expiresAt, code, expiresAt).run();
 
-      // چاپ کد در لاگ‌ها (برای تست)
+      // ✅ اتصال به کاوه‌نگار برای ارسال پیامک
+      const apiKey = env.KAVENEGAR_API_KEY;
+      const templateName = 'otplogin'; // نام قالبی که ساختید
+      const kavenegarUrl = `https://api.kavenegar.com/v1/${apiKey}/verify/lookup.json?receptor=${phone}&token=${code}&template=${templateName}`;
+
+      try {
+        const smsResponse = await fetch(kavenegarUrl);
+        const smsData = await smsResponse.json();
+        
+        if (smsData.return && smsData.return.status !== 200) {
+          console.error("Kavenegar Error:", smsData.return.message);
+        } else {
+          console.log(`پیامک با موفقیت به ${phone} ارسال شد.`);
+        }
+      } catch (smsError) {
+        console.error("Failed to fetch Kavenegar:", smsError);
+        // حتی اگر پیامک ارسال نشد، کد در دیتابیس ذخیره شده است
+      }
+
+      // چاپ کد در لاگ‌ها (برای پشتیبان)
       console.log(`کد تایید برای ${phone}: ${code}`);
 
       return new Response(JSON.stringify({ success: true, message: "کد ارسال شد" }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -70,14 +92,16 @@ async function handleAuth(request, env, url) {
       let user = await env.DB.prepare("SELECT * FROM users WHERE phone = ?").bind(phone).first();
       if (!user) {
         const result = await env.DB.prepare("INSERT INTO users (phone) VALUES (?)").bind(phone).run();
-        user = { id: result.meta.last_row_id, phone };
+        user = { id: result.meta.last_row_id, phone, role: 'user' };
       }
 
-      // ساخت توکن ساده (برای دمو)
-      const token = btoa(JSON.stringify({ userId: user.id, phone: user.phone, exp: Date.now() + 7 * 24 * 60 * 60 * 1000 }));
+      // ساخت توکن ساده (شامل نقش کاربر)
+      const token = btoa(JSON.stringify({ userId: user.id, phone: user.phone, role: user.role || 'user', exp: Date.now() + 7 * 24 * 60 * 60 * 1000 }));
 
       const response = new Response(JSON.stringify({ success: true, user }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-      response.headers.set('Set-Cookie', `auth_token=${token}; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=${7 * 24 * 60 * 60}`);
+      
+      // تنظیم کوکی (بدون Secure برای تست راحت‌تر)
+      response.headers.set('Set-Cookie', `auth_token=${token}; HttpOnly; SameSite=Lax; Path=/; Domain=ariapartoagah.ir; Max-Age=${7 * 24 * 60 * 60}`);
       return response;
     } catch (e) {
       console.error("Error in verify-otp:", e);
