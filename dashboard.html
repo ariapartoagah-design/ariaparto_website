@@ -6,6 +6,7 @@
 <title>داشبورد | آریا پرتو آگاه</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   body {
     font-family: Tahoma, Arial, sans-serif;
     background: #f8f9fa;
@@ -18,6 +19,8 @@
 
   /* نوار بالا */
   .topbar {
+    position: relative;
+    z-index: 10;
     display: flex;
     align-items: center;
     gap: 22px;
@@ -26,18 +29,27 @@
     background: #fff;
     border-bottom: 1px solid #e8eaed;
   }
-  .topbar a { color: #5f6368; text-decoration: none; cursor: pointer; }
+  .topbar a {
+    color: #5f6368;
+    text-decoration: none;
+    cursor: pointer;
+  }
   .topbar a:hover { text-decoration: underline; }
   .topbar .spacer { flex: 1; }
   .topbar button {
-    background: none; border: none; font-size: 17px; cursor: pointer; padding: 4px 6px; border-radius: 50%;
+    background: none;
+    border: none;
+    font-size: 17px;
+    cursor: pointer;
+    padding: 4px 6px;
+    border-radius: 50%;
   }
   .topbar button:hover { background: #f8f9fa; }
 
   /* محتوای اصلی */
   main {
     flex: 1;
-    max-width: 800px;
+    max-width: 900px;
     width: 100%;
     margin: 0 auto;
     padding: 40px 24px 60px;
@@ -45,7 +57,7 @@
 
   .welcome-header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
   .welcome-header h1 {
     font-size: 28px;
@@ -58,80 +70,208 @@
     color: #5f6368;
   }
 
-  /* کارت‌ها */
-  .card {
+  /* بنر هشدار */
+  .alert-banner {
+    display: none;
+    background: #fef7e0;
+    color: #b06000;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #f9ab00;
+    font-size: 14px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  /* کارت‌های اطلاعات */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .info-card {
     background: #fff;
     border: 1px solid #e8eaed;
     border-radius: 12px;
     padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-  }
-  .card h2 {
-    font-size: 18px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #202124;
-    border-bottom: 1px solid #e8eaed;
-    padding-bottom: 12px;
-  }
-
-  /* جدول اطلاعات */
-  .info-row {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #f1f3f4;
-    font-size: 14px;
+    align-items: center;
+    gap: 16px;
   }
-  .info-row:last-child { border-bottom: none; }
-  .info-label { color: #5f6368; font-weight: 500; }
-  .info-value { color: #202124; font-weight: 600; }
-
-  /* دکمه ارتقا */
-  .upgrade-btn {
-    display: inline-flex;
+  .info-icon {
+    width: 48px;
+    height: 48px;
+    background: #e8f0fe;
+    color: #1a73e8;
+    border-radius: 12px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 14px;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .info-content { flex: 1; }
+  .info-label {
+    font-size: 12.5px;
+    color: #5f6368;
+    margin-bottom: 4px;
+  }
+  .info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #202124;
+  }
+  .role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .role-user { background: #f1f3f4; color: #3c4043; }
+  .role-subscriber { background: #e8f0fe; color: #174ea6; }
+  .role-partner { background: #fce8e6; color: #a50e0e; }
+  .role-admin { background: #f3e5f5; color: #4a148c; }
+
+  /* بخش‌های عملیاتی */
+  .action-card {
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+    margin-bottom: 24px;
+  }
+  .action-card h2 { font-size: 20px; margin-bottom: 12px; color: #202124; }
+  .action-card p { font-size: 14.5px; color: #5f6368; margin-bottom: 24px; line-height: 1.8; }
+  
+  .btn-primary {
     background: #1a73e8;
     color: #fff;
     border: none;
+    padding: 12px 32px;
     border-radius: 8px;
     font-family: inherit;
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.15s;
-    margin-top: 10px;
+    transition: background 0.2s;
   }
-  .upgrade-btn:hover { background: #1765cc; }
+  .btn-primary:hover { background: #1765cc; }
 
-  .alert-box {
-    background: #fef7e0;
-    color: #b06000;
-    padding: 16px;
-    border-radius: 8px;
-    border: 1px solid #f9ab00;
-    font-size: 14px;
-    margin-bottom: 20px;
-    text-align: center;
+  /* بخش دسترسی‌های ویژه */
+  .special-access {
+    display: none;
+    background: #fff;
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
   }
+  .special-access h2 { font-size: 20px; margin-bottom: 24px; color: #202124; border-right: 4px solid #34a853; padding-right: 12px; }
+  .special-links { display: flex; flex-direction: column; gap: 12px; }
+  .special-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 1px solid #e8eaed;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #202124;
+    font-weight: 500;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .special-link:hover { background: #e8f0fe; border-color: #1a73e8; color: #1a73e8; }
+
+  /* مودال ارتقا */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+  .modal.open { display: flex; }
+  .modal-box {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .modal-head h2 { font-size: 18px; font-weight: 700; }
+  .modal-head button { background: none; border: none; font-size: 24px; cursor: pointer; color: #5f6368; }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-size: 13px; color: #5f6368; margin-bottom: 8px; font-weight: 500; }
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #dfe1e5;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    outline: none;
+  }
+  .form-group textarea:focus { border-color: #1a73e8; box-shadow: 0 0 0 2px rgba(26,115,232,0.15); }
+  .modal-actions { display: flex; gap: 12px; margin-top: 24px; }
+  .modal-actions button { flex: 1; padding: 12px; border-radius: 8px; font-family: inherit; font-size: 14.5px; font-weight: 600; cursor: pointer; border: none; }
+  .btn-cancel { background: #f1f3f4; color: #3c4043; }
+  .btn-submit { background: #1a73e8; color: #fff; }
+
+  /* فوتر */
+  footer {
+    border-top: 1px solid #e8eaed;
+    padding: 14px 28px;
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    font-size: 12.5px;
+    color: #5f6368;
+  }
+  footer a { color: #5f6368; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
 
   /* حالت تاریک */
   [data-theme="dark"] body { background: #202124; color: #e8eaed; }
   [data-theme="dark"] .topbar { background: #303134; border-color: #3c4043; }
-  [data-theme="dark"] .topbar a { color: #9aa0a6; }
+  [data-theme="dark"] .topbar a, [data-theme="dark"] footer a { color: #9aa0a6; }
+  [data-theme="dark"] .topbar button:hover { background: #3c4043; }
   [data-theme="dark"] .welcome-header h1 { color: #e8eaed; }
   [data-theme="dark"] .welcome-header p { color: #9aa0a6; }
-  [data-theme="dark"] .card { background: #303134; border-color: #3c4043; }
-  [data-theme="dark"] .card h2 { color: #e8eaed; border-color: #3c4043; }
-  [data-theme="dark"] .info-row { border-color: #3c4043; }
+  [data-theme="dark"] .info-card, [data-theme="dark"] .action-card, [data-theme="dark"] .special-access { background: #303134; border-color: #3c4043; }
+  [data-theme="dark"] .info-icon { background: #3c4043; color: #8ab4f8; }
   [data-theme="dark"] .info-label { color: #9aa0a6; }
   [data-theme="dark"] .info-value { color: #e8eaed; }
-  [data-theme="dark"] .alert-box { background: #3c2e00; border-color: #f9ab00; color: #fdd663; }
+  [data-theme="dark"] .action-card h2, [data-theme="dark"] .special-access h2 { color: #e8eaed; }
+  [data-theme="dark"] .action-card p { color: #9aa0a6; }
+  [data-theme="dark"] .special-link { background: #202124; border-color: #3c4043; color: #e8eaed; }
+  [data-theme="dark"] .special-link:hover { background: #3c4043; border-color: #8ab4f8; color: #8ab4f8; }
+  [data-theme="dark"] .modal-box { background: #303134; }
+  [data-theme="dark"] .modal-head h2 { color: #e8eaed; }
+  [data-theme="dark"] .modal-head button { color: #9aa0a6; }
+  [data-theme="dark"] .form-group label { color: #9aa0a6; }
+  [data-theme="dark"] .form-group textarea { background: #202124; border-color: #3c4043; color: #e8eaed; }
+  [data-theme="dark"] .btn-cancel { background: #3c4043; color: #e8eaed; }
+  [data-theme="dark"] footer { border-color: #3c4043; }
+
+  @media (max-width: 720px) {
+    .info-grid { grid-template-columns: 1fr; }
+    main { padding: 20px 16px 40px; }
+  }
 </style>
 </head>
 <body>
@@ -142,58 +282,97 @@
     <a href="membership.html">سطوح دسترسی</a>
     <span class="spacer"></span>
     <button id="themeBtn" type="button">🌙</button>
-    <span id="userGreeting" style="display:none; color:#1a73e8; font-weight:600;"></span>
+    <span id="userGreeting" style="display:none; color:#1a73e8; font-weight:600; margin-left: 15px;"></span>
     <a href="login.html" class="login-link" id="loginLink">ورود</a>
     <a href="#" class="logout-link" id="logoutLink" style="display: none; color: #d93025;">خروج</a>
   </div>
 
   <main>
     <div class="welcome-header">
-      <h1>داشبورد کاربری</h1>
+      <h1 id="welcomeTitle">داشبورد کاربری</h1>
       <p>به پنل اختصاصی خود خوش آمدید</p>
     </div>
 
-    <!-- پیام هشدار برای کاربران تایید نشده -->
-    <div id="verificationAlert" class="alert-box" style="display: none;">
+    <!-- بنر هشدار برای کاربران تایید نشده -->
+    <div id="verificationAlert" class="alert-banner">
       ⚠️ حساب شما در انتظار تأیید مدیر است. دسترسی به بخش‌های محرمانه محدود شده است.
     </div>
 
-    <!-- کارت اطلاعات کاربر -->
-    <div class="card">
-      <h2>اطلاعات حساب</h2>
-      <div class="info-row">
-        <span class="info-label">نام و نام خانوادگی:</span>
-        <span class="info-value" id="dashName">-</span>
+    <!-- کارت‌های اطلاعات کاربر -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">👤</div>
+        <div class="info-content">
+          <div class="info-label">نام و نام خانوادگی</div>
+          <div class="info-value" id="dashName">-</div>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-label">شماره موبایل:</span>
-        <span class="info-value" id="dashPhone" dir="ltr">-</span>
+      <div class="info-card">
+        <div class="info-icon">📱</div>
+        <div class="info-content">
+          <div class="info-label">شماره موبایل</div>
+          <div class="info-value" id="dashPhone" dir="ltr">-</div>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-label">ایمیل:</span>
-        <span class="info-value" id="dashEmail" dir="ltr">-</span>
+      <div class="info-card">
+        <div class="info-icon">✉️</div>
+        <div class="info-content">
+          <div class="info-label">ایمیل</div>
+          <div class="info-value" id="dashEmail" dir="ltr">-</div>
+        </div>
       </div>
-      <div class="info-row">
-        <span class="info-label">سطح دسترسی:</span>
-        <span class="info-value" id="dashRole">-</span>
-      </div>
-      <div class="info-row">
-        <span class="info-label">وضعیت تأیید:</span>
-        <span class="info-value" id="dashVerification">-</span>
+      <div class="info-card">
+        <div class="info-icon">🛡️</div>
+        <div class="info-content">
+          <div class="info-label">سطح دسترسی شما</div>
+          <div class="info-value" id="dashRole">-</div>
+        </div>
       </div>
     </div>
 
-    <!-- کارت ارتقا (فقط برای کاربران سطح ۳) -->
-    <div class="card" id="upgradeCard" style="display: none;">
+    <!-- بخش درخواست ارتقا (مخصوص سطح ۳) -->
+    <div class="action-card" id="upgradeSection" style="display: none;">
       <h2>ارتقا به سطح همکار</h2>
-      <p style="font-size: 14px; color: #5f6368; margin-bottom: 16px; line-height: 1.8;">
-        شما می‌توانید با ارسال مدارک و تایید مدیر، به سطح همکار (سطح ۴) ارتقا پیدا کنید. با این کار به بخش‌های محرمانه و شبکه کارگزاری دسترسی پیدا می‌کنید.
-      </p>
-      <button class="upgrade-btn" onclick="requestUpgrade()">
-        📤 درخواست ارتقا به همکار
-      </button>
+      <p>شما می‌توانید با ارسال مدارک و تایید مدیر، به سطح همکار (سطح ۴) ارتقا پیدا کنید. با این کار به بخش‌های محرمانه و شبکه کارگزاری دسترسی پیدا می‌کنید.</p>
+      <button class="btn-primary" onclick="openUpgradeModal()">درخواست ارتقا به همکار</button>
+    </div>
+
+    <!-- بخش دسترسی‌های ویژه (مخصوص سطح ۴ و ۵ تایید شده) -->
+    <div class="special-access" id="specialAccessSection">
+      <h2>دسترسی‌های ویژه همکاران</h2>
+      <div class="special-links">
+        <a href="#" class="special-link"><span>📄 مستندات فنی و حقوقی</span><span>←</span></a>
+        <a href="#" class="special-link"><span>🌐 اتصال به شبکه کارگزاری</span><span>←</span></a>
+        <a href="#" class="special-link"><span>📝 ثبت آگهی و درخواست خرید/فروش</span><span>←</span></a>
+      </div>
     </div>
   </main>
+
+  <footer>
+    <a href="contact.html">تماس</a>
+    <a href="about.html">درباره</a>
+    <span>© آریا پرتو آگاه</span>
+  </footer>
+
+  <!-- مودال درخواست ارتقا -->
+  <div class="modal" id="upgradeModal">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h2>درخواست ارتقا به همکار</h2>
+        <button type="button" onclick="closeUpgradeModal()">✕</button>
+      </div>
+      <form id="upgradeForm" onsubmit="submitUpgrade(event)">
+        <div class="form-group">
+          <label>توضیحات و مدارک (نام شرکت، شماره ثبت یا لینک مدارک)</label>
+          <textarea id="upgradeDocs" placeholder="لطفاً اطلاعات شرکت یا لینک مدارک خود را وارد کنید..." required></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeUpgradeModal()">انصراف</button>
+          <button type="submit" class="btn-submit" id="btnSubmitUpgrade">ارسال درخواست</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
 <script>
   // --- کدهای تم تاریک/روشن ---
@@ -219,42 +398,37 @@
     try {
       const res = await fetch('/api/auth/me', { credentials: 'include' });
       if (!res.ok) {
+        // اگر کاربر لاگین نبود یا خطایی بود، به صفحه لاگین برود
         window.location.href = 'login.html';
         return;
       }
       const data = await res.json();
       const user = data.user;
 
-      // نمایش اطلاعات
+      // نمایش اطلاعات پایه
       document.getElementById('dashName').textContent = user.name || 'وارد نشده';
       document.getElementById('dashPhone').textContent = user.phone || '-';
       document.getElementById('dashEmail').textContent = user.email || 'وارد نشده';
       
       // ترجمه نقش
-      const roleNames = {
-        'user': 'کاربر پایه',
-        'subscriber': 'مشترک',
-        'partner': 'همکار',
-        'admin': 'شریک / مدیر'
-      };
-      document.getElementById('dashRole').textContent = roleNames[user.role] || user.role;
+      const roleNames = { 'user': 'کاربر پایه', 'subscriber': 'مشترک', 'partner': 'همکار', 'admin': 'شریک / مدیر' };
+      const roleClasses = { 'user': 'role-user', 'subscriber': 'role-subscriber', 'partner': 'role-partner', 'admin': 'role-admin' };
+      
+      const roleEl = document.getElementById('dashRole');
+      roleEl.textContent = roleNames[user.role] || user.role;
+      roleEl.className = `info-value role-badge ${roleClasses[user.role] || 'role-user'}`;
 
-      // ترجمه وضعیت تأیید
-      const verificationNames = {
-        'pending': 'در انتظار تأیید',
-        'approved': 'تأیید شده',
-        'rejected': 'رد شده'
-      };
-      document.getElementById('dashVerification').textContent = verificationNames[user.verification_status] || user.verification_status;
-
-      // نمایش هشدار برای کاربران تایید نشده
-      if (['partner', 'admin'].includes(user.role) && user.verification_status !== 'approved') {
-        document.getElementById('verificationAlert').style.display = 'block';
+      // منطق نمایش بر اساس نقش و وضعیت
+      if (user.role === 'subscriber') {
+        document.getElementById('upgradeSection').style.display = 'block';
       }
 
-      // نمایش دکمه ارتقا فقط برای کاربران سطح ۳ (مشترک)
-      if (user.role === 'subscriber') {
-        document.getElementById('upgradeCard').style.display = 'block';
+      if (['partner', 'admin'].includes(user.role)) {
+        if (user.verification_status !== 'approved') {
+          document.getElementById('verificationAlert').style.display = 'block';
+        } else {
+          document.getElementById('specialAccessSection').style.display = 'block';
+        }
       }
 
     } catch (err) {
@@ -263,10 +437,40 @@
     }
   }
 
-  // --- درخواست ارتقا (موقت) ---
-  function requestUpgrade() {
-    alert('فرم درخواست ارتقا به زودی در دسترس خواهد بود. (این بخش در حال توسعه است)');
-    // در آینده: باز کردن مودال و ارسال درخواست به API
+  // --- مودال ارتقا ---
+  function openUpgradeModal() { document.getElementById('upgradeModal').classList.add('open'); }
+  function closeUpgradeModal() { document.getElementById('upgradeModal').classList.remove('open'); }
+
+  async function submitUpgrade(e) {
+    e.preventDefault();
+    const docs = document.getElementById('upgradeDocs').value.trim();
+    const btn = document.getElementById('btnSubmitUpgrade');
+    
+    btn.disabled = true;
+    btn.textContent = "در حال ارسال...";
+
+    try {
+      const res = await fetch('/api/user/request-upgrade', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ docs }),
+        credentials: 'include'
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('درخواست ارتقای شما با موفقیت ثبت شد و در انتظار تایید مدیر است.');
+        closeUpgradeModal();
+        window.location.reload(); // رفرش برای نمایش بنر هشدار
+      } else {
+        alert(data.error || 'خطا در ثبت درخواست');
+      }
+    } catch (err) {
+      alert('خطای شبکه، دوباره تلاش کنید');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "ارسال درخواست";
+    }
   }
 
   // اجرای اولیه
