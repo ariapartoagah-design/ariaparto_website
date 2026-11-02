@@ -6,218 +6,54 @@
 <title>خدمات | آریا پرتو آگاه</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: Tahoma, Arial, sans-serif;
-    background: #ffffff;
-    color: #202124;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    transition: background 0.25s, color 0.25s;
-  }
-
-  /* نوار بالا */
-  .topbar {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    padding: 20px 28px;
-    font-size: 13px;
-  }
-  .topbar a {
-    color: #5f6368;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  body { font-family: Tahoma, Arial, sans-serif; background: #ffffff; color: #202124; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.25s, color 0.25s; }
+  .topbar { position: relative; z-index: 10; display: flex; align-items: center; gap: 22px; padding: 20px 28px; font-size: 13px; }
+  .topbar a { color: #5f6368; text-decoration: none; cursor: pointer; }
   .topbar a:hover { text-decoration: underline; }
   .topbar .spacer { flex: 1; }
-  .topbar button {
-    background: none;
-    border: none;
-    font-size: 17px;
-    cursor: pointer;
-    padding: 4px 6px;
-    border-radius: 50%;
-  }
+  .topbar button { background: none; border: none; font-size: 17px; cursor: pointer; padding: 4px 6px; border-radius: 50%; }
   .topbar button:hover { background: #f8f9fa; }
-
-  /* محتوای اصلی */
-  main {
-    flex: 1;
-    max-width: 960px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px 24px 60px;
-  }
-
-  .page-header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-  .page-header h1 {
-    font-size: 34px;
-    font-weight: 700;
-    color: #202124;
-    margin-bottom: 10px;
-    letter-spacing: -0.5px;
-  }
-  .page-header p {
-    font-size: 14.5px;
-    color: #5f6368;
-  }
-
-  /* شبکه کارت‌ها */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .card {
-    border: 1px solid #e8eaed;
-    border-radius: 12px;
-    padding: 22px 20px;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.25s;
-    display: flex;
-    flex-direction: column;
-  }
-  .card:hover {
-    border-color: #dadce0;
-    box-shadow: 0 4px 14px rgba(32,33,36,0.08);
-    transform: translateY(-2px);
-  }
-  .card .icon {
-    font-size: 22px;
-    margin-bottom: 14px;
-    display: block;
-  }
-  .card h3 {
-    font-size: 15.5px;
-    font-weight: 600;
-    color: #202124;
-    margin-bottom: 8px;
-  }
-  .card p {
-    font-size: 13px;
-    color: #5f6368;
-    line-height: 1.7;
-    flex: 1;
-  }
-
-  /* استایل دکمه دانلود */
-  .card .download-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
-    padding: 10px 16px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    color: #1a73e8;
-    background: transparent;
-    border: 1px solid #1a73e8;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .card .download-btn:hover {
-    background: #1a73e8;
-    color: #fff;
-  }
-
-  /* فراخوان پایانی */
-  .cta {
-    text-align: center;
-    margin-top: 60px;
-    padding-top: 40px;
-    border-top: 1px solid #e8eaed;
-  }
-  .cta p {
-    font-size: 15px;
-    color: #3c4043;
-    margin-bottom: 20px;
-  }
-  .cta button {
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 12px 32px;
-    border: none;
-    border-radius: 8px;
-    background: #1a73e8;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
+  main { flex: 1; max-width: 960px; width: 100%; margin: 0 auto; padding: 20px 24px 60px; }
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header h1 { font-size: 34px; font-weight: 700; color: #202124; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .page-header p { font-size: 14.5px; color: #5f6368; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { border: 1px solid #e8eaed; border-radius: 12px; padding: 22px 20px; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, background 0.25s; display: flex; flex-direction: column; }
+  .card:hover { border-color: #dadce0; box-shadow: 0 4px 14px rgba(32,33,36,0.08); transform: translateY(-2px); }
+  .card .icon { font-size: 22px; margin-bottom: 14px; display: block; }
+  .card h3 { font-size: 15.5px; font-weight: 600; color: #202124; margin-bottom: 8px; }
+  .card p { font-size: 13px; color: #5f6368; line-height: 1.7; flex: 1; }
+  
+  /* تغییر متن و آیکون دکمه به "مشاهده کاتالوگ" */
+  .card .download-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 10px 16px; font-family: inherit; font-size: 13px; font-weight: 600; color: #1a73e8; background: transparent; border: 1px solid #1a73e8; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+  .card .download-btn:hover { background: #1a73e8; color: #fff; }
+  
+  .cta { text-align: center; margin-top: 60px; padding-top: 40px; border-top: 1px solid #e8eaed; }
+  .cta p { font-size: 15px; color: #3c4043; margin-bottom: 20px; }
+  .cta button { font-family: inherit; font-size: 14px; font-weight: 600; padding: 12px 32px; border: none; border-radius: 8px; background: #1a73e8; color: #fff; cursor: pointer; transition: background 0.15s; }
   .cta button:hover { background: #1765cc; }
-
-  /* فوتر */
-  footer {
-    border-top: 1px solid #e8eaed;
-    padding: 14px 28px;
-    display: flex;
-    justify-content: center;
-    gap: 22px;
-    font-size: 12.5px;
-    color: #5f6368;
-  }
-  footer a {
-    color: #5f6368;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  footer { border-top: 1px solid #e8eaed; padding: 14px 28px; display: flex; justify-content: center; gap: 22px; font-size: 12.5px; color: #5f6368; }
+  footer a { color: #5f6368; text-decoration: none; cursor: pointer; }
   footer a:hover { text-decoration: underline; }
-
-  /* حالت تاریک */
-  [data-theme="dark"] body {
-    background: #202124;
-    color: #e8eaed;
-  }
-  [data-theme="dark"] .topbar a,
-  [data-theme="dark"] footer a {
-    color: #9aa0a6;
-  }
-  [data-theme="dark"] .topbar button:hover {
-    background: #303134;
-  }
+  
+  [data-theme="dark"] body { background: #202124; color: #e8eaed; }
+  [data-theme="dark"] .topbar a, [data-theme="dark"] footer a { color: #9aa0a6; }
+  [data-theme="dark"] .topbar button:hover { background: #303134; }
   [data-theme="dark"] .page-header h1 { color: #e8eaed; }
   [data-theme="dark"] .page-header p { color: #9aa0a6; }
-  [data-theme="dark"] .card {
-    border-color: #3c4043;
-  }
-  [data-theme="dark"] .card:hover {
-    border-color: #5f6368;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  }
+  [data-theme="dark"] .card { border-color: #3c4043; }
+  [data-theme="dark"] .card:hover { border-color: #5f6368; box-shadow: 0 4px 14px rgba(0,0,0,0.4); }
   [data-theme="dark"] .card h3 { color: #e8eaed; }
   [data-theme="dark"] .card p { color: #9aa0a6; }
-  [data-theme="dark"] .card .download-btn {
-    color: #8ab4f8;
-    border-color: #8ab4f8;
-  }
-  [data-theme="dark"] .card .download-btn:hover {
-    background: #8ab4f8;
-    color: #202124;
-  }
+  [data-theme="dark"] .card .download-btn { color: #8ab4f8; border-color: #8ab4f8; }
+  [data-theme="dark"] .card .download-btn:hover { background: #8ab4f8; color: #202124; }
   [data-theme="dark"] .cta { border-color: #3c4043; }
   [data-theme="dark"] .cta p { color: #e8eaed; }
-  [data-theme="dark"] .cta button {
-    background: #8ab4f8;
-    color: #202124;
-  }
+  [data-theme="dark"] .cta button { background: #8ab4f8; color: #202124; }
   [data-theme="dark"] .cta button:hover { background: #aecbfa; }
   [data-theme="dark"] footer { border-color: #3c4043; }
-
-  @media (max-width: 720px) {
-    .grid { grid-template-columns: 1fr; }
-    .page-header h1 { font-size: 26px; }
-    main { padding: 12px 18px 40px; }
-  }
+  
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } .page-header h1 { font-size: 26px; } main { padding: 12px 18px 40px; } }
 </style>
 </head>
 <body>
@@ -242,61 +78,43 @@
     </div>
 
     <div class="grid">
-
       <div class="card">
         <span class="icon">⚡</span>
         <h3>برق صنعتی</h3>
         <p>اتصال کارفرمایان به پیمانکاران و تامین‌کنندگان تجهیزات برق صنعتی.</p>
-        <button class="download-btn" onclick="handleDownload('برق صنعتی', 'files/barq-sanati.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <!-- لینک به فایل HTML جدید -->
+        <button class="download-btn" onclick="handleDownload('برق صنعتی', 'barq-sanati.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
       <div class="card">
         <span class="icon">☀️</span>
         <h3>نیروگاه خورشیدی</h3>
         <p>تامین پنل، اینورتر، سازه و معرفی پیمانکار برای پروژه‌های خورشیدی.</p>
-        <button class="download-btn" onclick="handleDownload('نیروگاه خورشیدی', 'files/solar.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <button class="download-btn" onclick="handleDownload('نیروگاه خورشیدی', 'solar.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
       <div class="card">
         <span class="icon">📉</span>
         <h3>بهینه‌سازی مصرف</h3>
         <p>ممیزی انرژی، کاهش مصرف و اخذ گواهی صرفه‌جویی برای صنایع و ساختمان‌ها.</p>
-        <button class="download-btn" onclick="handleDownload('بهینه‌سازی مصرف', 'files/energy-saving.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <button class="download-btn" onclick="handleDownload('بهینه‌سازی مصرف', 'energy-saving.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
       <div class="card">
         <span class="icon">📊</span>
         <h3>بازار انرژی</h3>
         <p>واسطه‌گری معاملات برق و گواهی صرفه‌جویی در بورس انرژی.</p>
-        <button class="download-btn" onclick="handleDownload('بازار انرژی', 'files/energy-market.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <button class="download-btn" onclick="handleDownload('بازار انرژی', 'energy-market.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
       <div class="card">
         <span class="icon">🤝</span>
         <h3>مشاوره تخصصی</h3>
         <p>انتخاب تامین‌کننده، قیمت‌گذاری و ارزیابی فنی پروژه‌های انرژی.</p>
-        <button class="download-btn" onclick="handleDownload('مشاوره تخصصی', 'files/consulting.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <button class="download-btn" onclick="handleDownload('مشاوره تخصصی', 'consulting.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
       <div class="card">
         <span class="icon">🌍</span>
         <h3>صادرات</h3>
         <p>اتصال تولیدکنندگان داخلی به بازارهای منطقه‌ای و مدیریت زنجیره صادرات.</p>
-        <button class="download-btn" onclick="handleDownload('صادرات', 'files/export.pdf')">
-          ⬇️ دانلود کاتالوگ
-        </button>
+        <button class="download-btn" onclick="handleDownload('صادرات', 'export.html')">👁️ مشاهده کاتالوگ</button>
       </div>
-
     </div>
 
     <div class="cta">
@@ -313,20 +131,16 @@
   </footer>
 
 <script>
-  // --- کدهای تم تاریک/روشن ---
   var themeBtn = document.getElementById('themeBtn');
-
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
     try { localStorage.setItem('theme', theme); } catch(e) {}
   }
-
   themeBtn.addEventListener('click', function() {
     var current = document.documentElement.getAttribute('data-theme') || 'light';
     applyTheme(current === 'dark' ? 'light' : 'dark');
   });
-
   (function initTheme() {
     var saved = null;
     try { saved = localStorage.getItem('theme'); } catch(e) {}
@@ -334,34 +148,20 @@
     else applyTheme('light');
   })();
 
-  // --- منطق دانلود و بررسی لاگین ---
   function isLoggedIn() {
-    // بررسی دقیق‌تر: آیا localStorage می‌گوید کاربر لاگین است؟
-    if (localStorage.getItem('user_logged_in') === 'true') {
-        return true;
-    }
-    // اگر auth.js قبلاً وضعیت کاربر را گرفته باشد
-    if (window.currentUser !== undefined && window.currentUser !== null) {
-        return true;
-    }
-    return false;
+    return localStorage.getItem('user_logged_in') === 'true';
   }
 
-  function handleDownload(serviceName, pdfUrl) {
+  function handleDownload(serviceName, url) {
     if (isLoggedIn()) {
-      // اگر لاگین بود، دانلود کن
-      window.open(pdfUrl, '_blank');
+      window.open(url, '_blank');
     } else {
-      // اگر لاگین نبود، به صفحه لاگین برو
-      alert('برای دانلود کاتالوگ، لطفاً ابتدا وارد شوید.');
+      alert('برای مشاهده کاتالوگ، لطفاً ابتدا وارد شوید.');
       sessionStorage.setItem('redirect_after_login', window.location.href);
       window.location.href = 'login.html';
     }
   }
 </script>
-
-<!-- اضافه کردن اسکریپت مشترک auth.js -->
 <script src="js/auth.js"></script>
-
 </body>
 </html>
