@@ -1,0 +1,21 @@
+
+# Aria Parto - Secure Staging Configuration
+# Environment: STAGING ONLY
+# Do not deploy to Production.
+
+name = "ariaparto-master-staging"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+# Isolated staging database
+[[d1_databases]]
+binding = "DB"
+database_name = "ariaparto-master-staging-db"
+database_id = "3347ed7e-91ba-42c7-a234-5b73d4292226"
+
+# Public website assets
+# The public directory must exist before deployment.
+[assets]
+directory = "./public"
+binding = "ASSETS"
